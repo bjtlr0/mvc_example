@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ksh.mapper.work.MemberRoleMapper">
+	<resultMap type="com.ksh.vo.work.MemberRoleVO" id="memberRole">
+		<id property="roleNum" column="roleNum"/>
+		<result property="role" column="role"/>
+	</resultMap>
+	
+	<select id="selectMemberRole" resultMap="memberRole" parameterType="int">
+		SELECT roleNum, role
+		FROM member_role
+		WHERE roleNum=#{roleNum}
+	</select>
+	
+	<insert id="insertMemberRole" parameterType="com.ksh.vo.work.MemberRoleVO">
+		INSERT INTO member_role
+		SET roleNum, role
+		VALUES (#{roleNum}, #{role})
+	</insert>
+</mapper>

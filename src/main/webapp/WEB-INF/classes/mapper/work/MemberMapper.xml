@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ksh.mapper.work.MemberMapper">
+ 	<resultMap type="com.ksh.vo.work.MemberVO" id="member">
+		<result property="id" column="id"/>
+		<result property="userId" column="userId"/>
+		<result property="userPwd" column="userPwd"/>
+		<result property="createTime" column="createTime"/>
+		<result property="modifyTime" column="modifyTime"/>
+		<result property="roles" column="roles" typeHandler="com.ksh.handler.ListTypeHandler"/>
+		<!-- collection 타입은 기본키와 join관계에 있는 테이블의 결과를 포함하여 가져올 때 사용하도록 한다. -->
+		<!-- ex) Authority와 ROLE을 별도로 구분하는 경우 Authority를 키로 하여 ROLE목록을 SELECT해온다. -->
+		<!-- <collection property="roles" column="roles" javaType="java.util.ArrayList" ofType="com.ksh.vo.work.MemberRoleVO"/> -->
+	</resultMap>
+	
+	<select id="selectMemberByUserId" resultMap="member" parameterType="String">
+		SELECT id, userId, userPwd, createTime, modifyTime, roles
+		FROM member
+		WHERE userId=#{userId}
+	</select>
+	
+	<select id="selectMember" resultMap="member" parameterType="long">
+		SELECT id, userId, userPwd, createTime, modifyTime, roles
+		FROM member
+		WHERE id=#{id}
+	</select>
+	
+	<select id="getMemberList" resultMap="member">
+		SELECT id, userId, userPwd, createTime, modifyTime, roles
+		FROM member
+	</select>
+
+	<delete id="deleteMember" parameterType="long">
+		DELETE 
+		FROM member
+		WHERE id=#{id}
+	</delete>
+	
+	<!-- <update id="updateMember" parameterType="com.ksh.vo.work.MemberVO">
+		UPDATE member SET
+			userId=#{userId},
+			userPwd=#{userPwd},
+			createTime=#{createTime},
+			modifyTime=#{modifyTime},
+			roles=#{roles}
+		WHERE id=#{id}
+	</update>-->
+	
+	<insert id="insertMember" parameterType="com.ksh.vo.work.MemberVO">
+		INSERT INTO member (userId, userPwd, createTime, modifyTime, roles)
+		VALUES (
+			#{userId}, #{userPwd}, #{createTime}, #{modifyTime},#{roles,jdbcType=VARCHAR,typeHandler=com.ksh.handler.ListTypeHandler}
+		)
+	</insert>
+
+</mapper>

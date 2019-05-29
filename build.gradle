@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+war {
+	baseName='kshProject'
+	version='0.0.1-SNAPSHOT'
+}
+group = 'GradleWork'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-jdbc:2.0.1.RELEASE')
+	// tomcat
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+	// jstl
+	compile('javax.servlet:jstl:1.2')
+	// mysql jdbc
+	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
+	compile('org.mybatis:mybatis-spring:1.3.1')
+	compile('org.mybatis:mybatis:3.4.5')
+	compile('mysql:mysql-connector-java:5.1.46')
+	// lombok
+	compile('org.projectlombok:lombok:1.18.6')
+	// mockito
+	compile('org.mockito:mockito-core:1._')
+	//test
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
