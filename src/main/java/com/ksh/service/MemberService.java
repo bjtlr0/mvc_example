@@ -22,7 +22,7 @@ public class MemberService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		MemberVO member = memberDao.selectMemberByUserId(userId);
 		if(member == null){
-			throw new UsernameNotFoundException(userId);
+			throw new UsernameNotFoundException(userId + ", UserName의 사용자 정보를 알 수 없습니다.");
 		}
 		return member;
 	}

@@ -22,7 +22,7 @@ public class MemberMapperDao implements MemberMapper{
 	}
 
 	@Override
-	public int deleteMember(long id) {
+	public int deleteMember(int id) {
 		return sqlSessionTemplate.delete("deleteMember", id);
 	}
 
@@ -32,7 +32,7 @@ public class MemberMapperDao implements MemberMapper{
 	}
 
 	@Override
-	public MemberVO selectMember(long id) {
+	public MemberVO selectMember(int id) {
 		return sqlSessionTemplate.selectOne("selectMember", id);
 	}
 
@@ -42,8 +42,8 @@ public class MemberMapperDao implements MemberMapper{
 	}
 
 	@Override
-	public MemberVO selectMemberByUserId(String userId) {
-		return sqlSessionTemplate.selectOne("selectMemberByUserId", userId);
+	public MemberVO selectMemberByUserId(String userName) {
+		return sqlSessionTemplate.selectOne("selectMemberByUserId", userName);
 	}
 
 }

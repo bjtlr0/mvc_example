@@ -48,4 +48,5 @@ dependencies {
 	compile('org.mockito:mockito-core:1._')
 	//test
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.boot:spring-boot-starter-security-test')
 }

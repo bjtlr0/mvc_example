@@ -11,18 +11,57 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.TypeHandler;
 
-import com.ksh.vo.work.MemberRole;
-import com.ksh.vo.work.MemberRoleVO;
+/*import com.ksh.vo.work.MemberRole;
+import com.ksh.vo.work.MemberRoleVO;*/
 
 
-/**
- * 사실 memberRole객체가 Number를 가질 필요성도 없고
- * 그로 인해 &로 강제로 나누는 행위를 하는게 엄청 거슬리지만
- * 그냥 테스트니까 진행한다.
- * */
+
 @MappedJdbcTypes(JdbcType.VARCHAR)
-public class ListTypeHandler implements TypeHandler<List<MemberRoleVO>> {
+public class ListTypeHandler implements TypeHandler<List<String>> {
+	@Override
+	public void setParameter(PreparedStatement ps, int i, List<String> parameter, JdbcType jdbcType)
+			throws SQLException {
+		StringBuffer buf = new StringBuffer();
+		for(int j=0; j<parameter.size(); j++){
+			buf.append(parameter.get(j).trim());
+			if(j<parameter.size() - 1){
+				buf.append(",");
+			}
+		}
+		ps.setString(i,buf.toString().trim());
+	}
 
+	@Override
+	public List<String> getResult(ResultSet rs, String columnName) throws SQLException {
+		List<String> roles = new ArrayList<String>();
+		String[] raw = rs.getString(columnName).split(",");
+		for (int j=0; j<raw.length; j++){
+			roles.add(raw[j].trim());
+		}
+		return roles;
+	}
+
+	@Override
+	public List<String> getResult(ResultSet rs, int columnIndex) throws SQLException {
+		List<String> roles = new ArrayList<String>();
+		String[] raw = rs.getString(columnIndex).split(",");
+		for (int j=0; j<raw.length; j++){
+			roles.add(raw[j].trim());
+		}
+		return roles;
+	}
+
+	@Override
+	public List<String> getResult(CallableStatement cs, int columnIndex) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * memberRole객체를 list로 받는경우 괜히 복잡해진다.
+	 * ROLE항목만 받을꺼다.
+	 */
+	/*
 	@Override
 	public void setParameter(PreparedStatement ps, int i, List<MemberRoleVO> parameter, JdbcType jdbcType)
 			throws SQLException {
@@ -71,6 +110,5 @@ public class ListTypeHandler implements TypeHandler<List<MemberRoleVO>> {
 	public List<MemberRoleVO> getResult(CallableStatement cs, int columnIndex) throws SQLException {
 		// ???
 		return null;
-	}
-
+	}*/
 }

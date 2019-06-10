@@ -37,15 +37,17 @@ public class LoginController {
 	public ModelAndView reqDefault(ModelAndView mav, Authentication authentication){
 		boolean result = memberService.authenticationTest(authentication);
 		if(result){
-			mav.setViewName("html/index");	
+			mav.addObject("msg", authentication.getName() + "님 로그인 됐습니다.");
+			mav.setViewName("html/loginComplete");
 		}else{
-			mav.setViewName("/logout");
+			mav.addObject("msg", "현재 세션이 유효하지 않은 것으로 확인됩니다.");
+			mav.setViewName("html/loginFail");
 		}
 		return mav;
 	}
 	
-	@RequestMapping(value="customLogin")
+	@RequestMapping(value="login")
 	public String loginPage(){
-		return "html/customLogin";
+		return "html/login";
 	}
 }

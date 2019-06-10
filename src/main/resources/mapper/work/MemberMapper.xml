@@ -5,8 +5,8 @@
 <mapper namespace="com.ksh.mapper.work.MemberMapper">
  	<resultMap type="com.ksh.vo.work.MemberVO" id="member">
 		<result property="id" column="id"/>
-		<result property="userId" column="userId"/>
-		<result property="userPwd" column="userPwd"/>
+		<result property="userName" column="userName"/>
+		<result property="userPassword" column="userPassword"/>
 		<result property="createTime" column="createTime"/>
 		<result property="modifyTime" column="modifyTime"/>
 		<result property="roles" column="roles" typeHandler="com.ksh.handler.ListTypeHandler"/>
@@ -16,23 +16,23 @@
 	</resultMap>
 	
 	<select id="selectMemberByUserId" resultMap="member" parameterType="String">
-		SELECT id, userId, userPwd, createTime, modifyTime, roles
+		SELECT id, userName, userPassword, createTime, modifyTime, roles
 		FROM member
 		WHERE userId=#{userId}
 	</select>
 	
-	<select id="selectMember" resultMap="member" parameterType="long">
-		SELECT id, userId, userPwd, createTime, modifyTime, roles
+	<select id="selectMember" resultMap="member" parameterType="Integer">
+		SELECT id, userName, userPassword, createTime, modifyTime, roles
 		FROM member
 		WHERE id=#{id}
 	</select>
 	
 	<select id="getMemberList" resultMap="member">
-		SELECT id, userId, userPwd, createTime, modifyTime, roles
+		SELECT id, userName, userPassword, createTime, modifyTime, roles
 		FROM member
 	</select>
 
-	<delete id="deleteMember" parameterType="long">
+	<delete id="deleteMember" parameterType="Integer">
 		DELETE 
 		FROM member
 		WHERE id=#{id}
@@ -49,9 +49,9 @@
 	</update>-->
 	
 	<insert id="insertMember" parameterType="com.ksh.vo.work.MemberVO">
-		INSERT INTO member (userId, userPwd, createTime, modifyTime, roles)
+		INSERT INTO member (userName, userPassword, createTime, modifyTime, roles)
 		VALUES (
-			#{userId}, #{userPwd}, #{createTime}, #{modifyTime},#{roles,jdbcType=VARCHAR,typeHandler=com.ksh.handler.ListTypeHandler}
+			#{userName}, #{userPassword}, #{createTime}, #{modifyTime},#{roles,jdbcType=VARCHAR,typeHandler=com.ksh.handler.ListTypeHandler}
 		)
 	</insert>
 
