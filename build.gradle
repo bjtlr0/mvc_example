@@ -45,8 +45,8 @@ dependencies {
 	// lombok
 	compile('org.projectlombok:lombok:1.18.6')
 	// mockito
-	compile('org.mockito:mockito-core:1._')
+	compile('org.mockito:mockito-core')
 	//test
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.boot:spring-boot-starter-security-test')
+	testCompile('org.springframework.security:spring-security-test')
 }

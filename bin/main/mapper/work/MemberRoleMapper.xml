@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 
 
-<mapper namespace="com.ksh.mapper.work.MemberRoleMapper">
-	<resultMap type="com.ksh.vo.work.MemberRoleVO" id="memberRole">
-		<id property="roleNum" column="roleNum"/>
+create table member_role(
+	role varchar (74) not null default 'USER',
+	criteria varchar (255) not null default '설명',
+	UNIQUE KEY(role)
+)
+
+INSERT INTO MEMBER_ROLE (ROLE, CRITERIA) VALUES ('USER', '일반 사용자');
+INSERT INTO MEMBER_ROLE (ROLE, CRITERIA) VALUES ('MANAGER', '관리자');
+INSERT INTO MEMBER_ROLE (ROLE, CRITERIA) VALUES ('ADMIN', '최고 관리자');
+ -->
+
+
+<mapper namespace="com.ksh.database.mapper.MemberRoleMapper">
+	<resultMap type="com.ksh.database.vo.MemberRoleVO" id="memberRole">
 		<result property="role" column="role"/>
+		<result property="criteria" column="criteria"/>
 	</resultMap>
 	
-	<select id="selectMemberRole" resultMap="memberRole" parameterType="int">
-		SELECT roleNum, role
+	<select id="selectMemberRole" resultMap="memberRole" parameterType="String">
+		SELECT role, criteria
 		FROM member_role
-		WHERE roleNum=#{roleNum}
+		WHERE role=#{role}
 	</select>
 	
-	<insert id="insertMemberRole" parameterType="com.ksh.vo.work.MemberRoleVO">
+	<insert id="insertMemberRole" parameterType="com.ksh.database.vo.MemberRoleVO">
 		INSERT INTO member_role
-		SET roleNum, role
-		VALUES (#{roleNum}, #{role})
+		SET role, criteria
+		VALUES (#{role}, #{criteria})
 	</insert>
 </mapper>
